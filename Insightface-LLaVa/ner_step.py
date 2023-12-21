@@ -14,16 +14,16 @@ def ner_step(text):
     nlp = spacy.load("en_core_web_sm")
     ner_categories = ["PERSON"]
     doc = nlp(text)
-    entites = []
+    entities = []
     
     
     for ent in doc.ents:
         if ent.label_ in ner_categories:
-            entites.append((ent.text, ent.label_))
-    if len(entites) == 0:
+            entities.append((ent.text, ent.label_))
+    if len(entities) == 0:
         return None
     else:
-        for entity, category in entites:
+        for entity, category in entities:
             names += entity + " / "
         return names[:-3]
         
