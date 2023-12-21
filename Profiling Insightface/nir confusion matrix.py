@@ -82,8 +82,15 @@ for NIR_file in NIR_onlyfiles:
                 best_distance = distance
                 correct_face = face
     
-      NIR_embed = correct_face.normed_embedding
-      NIR_embed = NIR_embed.reshape(1, -1)
+        NIR_embed = correct_face.normed_embedding
+        NIR_embed = NIR_embed.reshape(1, -1)
+        
+        if NIR_template_matrix is None:
+            NIR_template_matrix = NIR_embed
+        else:
+            NIR_template_matrix = np.append(NIR_template_matrix, NIR_embed, axis=0)
+        # adds the key-value pair into the dictionary
+        NIR_matching_library[count-1] = NIR_file
 
 
 NIR_max_sim_list = []
@@ -141,13 +148,13 @@ for NIR_file in NIR_onlyfiles:
     sim = np.matmul(NIR_template_matrix, NIR_embed.transpose())
     max_sim_index = np.argmax(sim)
     max_sim = sim[max_sim_index]
-    template_match_list.append(max_sim_index)
-    max_sim_list.append(max_sim)
+    NIR_template_match_list.append(max_sim_index)
+    NIR_max_sim_list.append(max_sim)
   
   
-    print(test_img_path[-1])
-    print(template_match_list[-1])
-    print(max_sim_list[-1])
+    print(NIR_test_img_path[-1])
+    print(NIR_template_match_list[-1])
+    print(NIR_max_sim_list[-1])
     print(count)
     print()
     print('---------------------------------')
