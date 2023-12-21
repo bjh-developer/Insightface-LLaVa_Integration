@@ -31,7 +31,6 @@ template_matrix = None
 #asks if user wants data to be cleaned to ensure that it only runs on images with faces in it
 userCleanData = input('clean data [y/n]: ')
 
-
 if userCleanData.lower() == 'y':
     count = 0
     
@@ -110,7 +109,7 @@ elif userCleanData.lower() == 'n':
     
     #main programme to sort images into its relevant human name clusters
     start = time.time()
-    clusters = full_programme(scrapedImages_cleaned, temp_img_list, matching_library, named_dictionary, template_matrix)
+    clusters = full_programme(scrapedImages, temp_img_list, matching_library, named_dictionary, template_matrix)
     end = time.time()
     print(end-start)
     
