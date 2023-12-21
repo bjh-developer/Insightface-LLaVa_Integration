@@ -37,6 +37,7 @@ matching_library = {}
 
 
 for file in onlyfiles:
+    count += 1
     print(file)
     img = cv2.imread(mypath + file)
     faces = app.get(img)
@@ -49,7 +50,10 @@ for file in onlyfiles:
         face = faces[0]
         embed = face.normed_embedding
         embed = embed.reshape(1, -1)
-        template_matrix = embed
+        if template_matrix is None:
+            template_matrix = embed
+        else:
+            template_matrix = np.append(template_matrix, embed, axis=0)
       
     elif len(faces) == 0:
         pass
@@ -72,8 +76,15 @@ for file in onlyfiles:
                 best_distance = distance
                 correct_face = face
     
-      embed = correct_face.normed_embedding
-      embed = embed.reshape(1, -1)
+        embed = correct_face.normed_embedding
+        embed = embed.reshape(1, -1)
+        
+        if template_matrix is None:
+            template_matrix = embed
+        else:
+            template_matrix = np.append(template_matrix, embed, axis=0)
+    
+    matching_library[count-1] = file
   
   
 max_sim_list = []
