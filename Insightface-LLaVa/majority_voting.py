@@ -42,7 +42,7 @@ def majority_voting(clusters, data):
                         data['wrongly named'] += len(clusters[person])
                         clusters.pop(person)
                 else:
-                    # Majorty voting algorithm
+                    # Majority voting algorithm
                     candidate = None
                     votes = 0
                     for i in range(len(names)):
